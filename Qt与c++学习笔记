@@ -15,6 +15,10 @@
     （3）std::weak_ptr: 专门为shared的循环引用问题设计，仅作为观察者存在。
 6、封装 Ui_Widget 为 Ui::Widget
    在include其他文件时，可以借鉴用命名空间封装的方式来避免命名冲突，同时极大的提升代码的层次性和可读性。
-7、界面文件 .ui 最终会被 uic（user interface complier）工具转换为c++代码，通常在ui_widget.h等文件中，
-   其并不直接参与应用的启动。
-8、
+7、界面文件 .ui 为 XML 格式的描述文件，不能直接编译，最终会被 uic（user interface complier）工具转换为c++
+   代码，通常在ui_widget.h等文件中，其并不直接包含于最终的应用中。
+8、Q_OBJECT 宏：对于包含该宏的类，Qt 的 moc (Meta-Object Compiler) 工具会解析这个类的头文件，生成一个与类
+   对应的元对象代码文件（moc_*.cpp），包括类的信号与槽实现、动态属性处理等。
+9、rcc 工具会读取 .qrc 文件，生成资源访问代码（qrc_xxx.cpp）。
+10、在 C++ 中，如果你在类的外部定义成员函数（而不是在类的声明里定义），需要通过 类名 + “ :: ”。
+11、
