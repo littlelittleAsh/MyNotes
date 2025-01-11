@@ -22,4 +22,8 @@
 9、rcc 工具会读取 .qrc 文件，生成资源访问代码（qrc_xxx.cpp）。
 10、Qt 的 QString 和 QPlainTextEdit 都是基于 Unicode 实现的，能够正确处理和显示国际化文本，包括：特殊符号、
     表情符号、多语言文本；
-11、
+11、private slots: 是一种特殊的语法，通常出现在使用 Qt 框架 时的代码中。这种写法是 Qt 特有的，属于 Qt 的信
+    号与槽（Signals and Slots）机制的一部分；
+12、设置图标：//任务栏图标、窗口图标：
+             this->setWindowIcon(QIcon(":/res/icon.png"));
+13、
