@@ -1,0 +1,9 @@
+1、体素化和渲染：
+   Voxelization：将三维空间离散化为体素网格的过程，主要用于数据存储、计算和分析。
+   Rendering：是将三维数据转化为二维图像的过程，关注的是视觉效果和图像输出。
+2、PointNet 支持的数据形式主要是 原始点云数据，格式如：
+    .pcd（常见于 LiDAR 数据集，如 KITTI、nuScenes、OpenTopography）
+    .ply（常见于带有颜色或附加信息的点云数据，如 ShapeNet、ScanNet）
+    .xyz（简单的三维坐标点集）
+    .las（常见于 LiDAR 数据）
+   对于网格数据（如 .obj 或 .off 格式），PointNet 本身不直接支持，需要先将网格数据转换为点云格式，然后才能用于 PointNet。
