@@ -1,0 +1,9 @@
+1、parser.add_argument是用来定义命令行参数的核心方法，基本语法为：
+   parser.add_argument(name_or_flags, *, action=None, nargs=None, const=None, default=None,
+                    type=None, choices=None, required=None, help=None, metavar=None, dest=None)
+   要点：
+2、关于系统的“终端”：
+    Windows 默认终端：cmd；
+    Linux 默认终端：Bash 或其他 shell；
+    MacOS 默认终端：Bash、Zsh 或其他 shell；
+3、
