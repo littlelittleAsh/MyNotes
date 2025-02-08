@@ -6,4 +6,210 @@
     Windows 默认终端：cmd；
     Linux 默认终端：Bash 或其他 shell；
     MacOS 默认终端：Bash、Zsh 或其他 shell；
-3、
+3、在终端执行的代码中，使用命令 python -c "..." 时，所有在字符串中执行的代码都是在一个临时的上下文环境中运行的，具体如下：
+   （1）临时上下文:
+         代码在一个单独的 Python 进程内执行，因此所有变量、库的导入等都只存在于这个进程中。一旦执行完成，所有的变量、状态都会被丢弃；
+   （2）别名有效性:
+         在你提到的示例中，将 open3d 简称为 o3d（即 import open3d as o3d）是有效的，但这种别名只在当前 Python 进程中有效。终止或结
+         束这个进程后，就不再存在；
+   （3）无状态保存:
+         既然是在临时环境中，任何数据、配置或状态（例如创建的对象、参数设定等）都不会被保存或持久化。如果你希望保存数据或结果，需要将其
+         输出到文件中或者在交互式 Python 环境中（如 Jupyter Notebook）执行相关代码；
+   （4）交互环境的差异:
+         在 Python 解释器或 Jupyter Notebook 中，定义的变量和导入的库会在会话中持续存在，直到会话结束或变量被显式删除。
+4、常见python项目结构：
+   （1）通用项目
+         my_project/
+         │── my_project/            # 主代码包，所有业务逻辑代码存放于此
+         │   ├── __init__.py        # 让该目录成为一个 Python 包
+         │   ├── main.py            # 主要的入口文件（如果是脚本）
+         │   ├── module1.py         # 具体功能模块
+         │   ├── module2.py
+         │   ├── utils/             # 工具函数（如 I/O 处理、日志记录等）
+         │   │   ├── __init__.py
+         │   │   ├── file_utils.py
+         │   │   ├── logging_utils.py
+         │── tests/                 # 单元测试
+         │   ├── test_module1.py
+         │   ├── test_module2.py
+         │── scripts/               # 辅助脚本（如数据处理、批量执行等）
+         │   ├── preprocess.py
+         │   ├── train_model.py
+         │── docs/                  # 文档（说明书、API 文档）
+         │── requirements.txt       # 依赖项（pip 安装）
+         │── setup.py               # 项目安装和打包（如果是库）
+         │── .gitignore             # Git 忽略规则
+         │── README.md              # 项目介绍
+
+   （2）机器学习（ML）
+         ml_project/
+         │── data/                  # 数据存放位置
+         │   ├── raw/               # 原始数据
+         │   ├── processed/         # 处理后的数据
+         │── notebooks/             # Jupyter Notebook（探索性分析、实验）
+         │   ├── eda.ipynb          # 数据探索 (Exploratory Data Analysis)
+         │   ├── model_training.ipynb  # 训练实验
+         │── src/                   # 主要代码
+         │   ├── __init__.py
+         │   ├── train.py           # 训练脚本
+         │   ├── evaluate.py        # 评估模型
+         │   ├── predict.py         # 推理代码
+         │   ├── models/            # 机器学习模型代码
+         │   │   ├── __init__.py
+         │   │   ├── cnn.py         # CNN 模型
+         │   │   ├── rnn.py         # RNN 模型
+         │   ├── utils/             # 辅助函数
+         │   │   ├── __init__.py
+         │   │   ├── data_loader.py # 数据加载
+         │   │   ├── metrics.py     # 评估指标
+         │── configs/               # 配置文件（如 YAML、JSON）
+         │   ├── default.yaml
+         │── tests/                 # 单元测试
+         │   ├── test_train.py
+         │── logs/                  # 训练日志
+         │── models/                # 训练好的模型（如 .pkl, .h5, .pth）
+         │── requirements.txt       # Python 依赖列表
+         │── README.md              # 项目介绍
+
+   （3）深度学习（DL）
+         dl_project/
+         │── data/                  # 数据集
+         │   ├── raw/               # 原始数据
+         │   ├── processed/         # 处理后的数据
+         │── notebooks/             # Jupyter Notebook 研究
+         │── src/                   # 代码目录
+         │   ├── __init__.py
+         │   ├── train.py           # 训练代码
+         │   ├── test.py            # 测试代码
+         │   ├── infer.py           # 推理代码
+         │   ├── datasets/          # 数据处理
+         │   │   ├── __init__.py
+         │   │   ├── dataset_loader.py
+         │   ├── models/            # 具体的深度学习模型
+         │   │   ├── __init__.py
+         │   │   ├── resnet.py
+         │   │   ├── transformer.py
+         │   ├── utils/             # 工具类
+         │   │   ├── __init__.py
+         │   │   ├── logging.py
+         │   │   ├── visualization.py
+         │── configs/               # 配置文件（YAML/JSON）
+         │   ├── train_config.yaml
+         │── logs/                  # 日志
+         │── models/                # 训练好的模型文件
+         │── experiments/           # 试验记录（如 TensorBoard）
+         │── scripts/               # 运行脚本
+         │── tests/                 # 测试代码
+         │── README.md              # 项目说明
+         │── requirements.txt       # 依赖
+
+   （4）Web API项目
+         web_api_project/
+         │── app/                   # Web 应用的主要代码
+         │   ├── __init__.py
+         │   ├── main.py            # API 入口
+         │   ├── routes.py          # 路由
+         │   ├── models.py          # 数据库模型
+         │   ├── services.py        # 业务逻辑
+         │── tests/                 # 测试代码
+         │── configs/               # 配置文件
+         │── static/                # 静态资源（HTML、CSS、JS）
+         │── templates/             # HTML 模板
+         │── logs/                  # 日志
+         │── Dockerfile             # Docker 配置
+         │── requirements.txt       # 依赖
+         │── README.md              # 项目介绍
+
+5、关于 __init__.py 文件：
+   （1）控制 import * 行为。如果 __init__.py 里定义了 __all__ 变量，from package import * 时，只会导入 __all__ 列表中定义的模块；
+   （2）统一的API入口。在 __init__.py 中导入子模块功能，便可在其他位置便捷的使用：from my_package import func1, func2；
+   （3）动态加载模块。当 包 太大时，可在  __init__.py 文件中根据 环境 选择性的加载部分模块；
+
+6、os 标准库提供了与操作系统交互的一些功能（常见）：
+   （1）路径操作：os.getcwd()、os.path.join()、os.path.basename(path)、os.path.dirname(path)、os.path.exists(path)、os.path.getsize(path)；
+   （2）文件目录操作：os.mkdir(path) 或 os.makedirs(path)、os.remove(path)（文件）、os.rmdir(path) 或 os.removedirs(path)（目录）；
+   （3）执行系统命令：os.system(command)；
+7、.py 文件的隐藏属性：
+   （1）特殊变量：
+         __name__：当 Python 文件作为脚本直接运行时，__name__ 的值为 "__main__"。当该文件作为模块被导入时，__name__ 会是模块的名字；
+         __doc__：存储模块、类、方法、函数的文档字符串，来源为动态获取用户编写的注释文档；
+         __dict__：是一个字典，包含了一个对象的 所有属性（对于模块、类、实例等都适用）；
+         __file__：表示当前 Python 脚本的 文件路径，通常是相对路径（当你从命令行或某个 IDE 运行 Python 脚本时，__file__ 会返回脚本的相对路径，相对
+   于当前工作目录（即 os.getcwd()），可以通过 os.path.abspath(__file__) 获取绝对路径；
+         __loader__：Python 在加载模块时使用的加载器对象。它通常是不可见的，除非你需要了解模块加载的细节；
+         __path__：__path__ 是一个包含模块或包路径的变量。当你导入包时，__path__ 指定了包的搜索路径；
+   （2）区分 __file__ 和 __path__ ：
+         __file__ 是一个属性（路径信息）；
+         __path__ 是针对 模块导入路径 的，主要用于包模块的查找；
+   （3）特殊方法：
+         __init__：构造方法，用于初始化类的实例；
+         __str__：定义当你调用 print() 或 str() 时，如何显示该对象的字符串表示；
+         __call__：让一个对象变得可调用，就像函数一样；
+8、可被__doc__ 识别的条件（及遵循PEP 257 规范）：
+   （1）模块级文档字符串：文档字符串应该放在模块的最顶端，即所有代码之前（包括 import）；
+   （2）类级、方法/函数级文档字符串：应该放在的定义下方，紧接着函数定义的第一行；
+   （3）用三引号 """ 包围；
+9、关于路径的格式问题：记住只有Windows使用的是反斜杠“\”即可；
+   原因：微软早期的命令行MS-DOS已提前使用了正斜杠；
+   解决：使用 os.path.join() 或 pathlib.Path()；
+9、“语法糖”相关：
+   （1）“数集”操作
+         列表推导式：[expression for item in iterable]；（返回list）
+         集合推导式：{expression for item in iterable}；（返回set）
+         字典推导式：{key_expression: value_expression for item in iterable}；（返回dict）
+   （2）生成器表达式——————（返回迭代器对象）
+         生成器表达式类似于列表推导式，但是它返回的是一个生成器对象!!，而不是一个完整的列表。
+         定义：(expression for item in iterable)
+         使用：当成列表使用即可————for num in squared_gen:   ；
+   （3）过滤器（filter() 函数）——————（返回迭代器对象）
+         filter() 函数根据给定的条件从可迭代对象中过滤出满足条件的元素。它返回一个过滤后的迭代器。
+         定义：filter(function, iterable)
+         例如：even_numbers = filter(lambda x: x % 2 == 0, numbers)；
+   （4）映射器（map() 函数）——————（返回迭代器对象）
+         定义：map(function, iterable)
+         exp: squared_numbers = map(lambda x: x ** 2, numbers)；
+              print(list(squared_numbers))  # [1, 4, 9, 16]；   # 迭代器对象不能直接打印，需要用list() 或 set() 函数进行显式转换；
+   （5）reduce() 函数（来自 functools 模块）
+         reduce() 函数通过对一个序列中的元素应用指定的二元函数，逐步将序列缩减成单一的结果，最终返回一个单一的值。
+         defin：from functools import reduce
+                reduce(function, iterable)；
+         exp:  product = reduce(lambda x, y: x * y, numbers)
+               print(product)  # 24
+   （6）zip()
+         一个内置函数，它会将多个可迭代对象的元素按顺序配对后“打包”成一个个元组；
+         注意：长度不等时，以最短的为准！
+   （7）enumerate()
+         用来为可迭代对象提供索引和元素的配对，返回的是一个迭代器，每个元素都是一个元组，包含元素的索引和对应的值；
+10、查看超大型txt文件的方法：
+   （1）使用Windows下的power shell：
+         exp: Get-Content "filename.txt" -Head 20；             # 查看前20行
+              Get-Content "filename.txt" -Skip 99 -Head 20      # 从第100行开始，查看20行
+              Get-Content "filename.txt" | Select-Object -First 1000 | Set-Content "part1.txt"   # 将 filename.txt 文件的前 1000 行保存到一
+         个新文件 part1.txt 中（分割）
+   （2）Linux下：
+         head -n 20 filename.txt；   # 前20行
+         tail -n 20 filename.txt；   # 末20行
+         tail -f filename.txt；      # 实时更新文件（如日志）
+         sed -n '100,200p' filename.txt；   # 查看从第 100 行到第 200 行的内容
+         awk 'NR>=100 && NR<=200' filename.txt；   # 查看从第 100 行到第 200 行的内容
+         split -l 1000 filename.txt part_；   # 将文件分割为每个部分包含 1000 行，文件名以 part_ 开头，如part_aa, part_ab 等
+         grep "ERROR" filename.txt | head -n 20；   # 查找文件中包含 ERROR 的指定（或所有）行
+11、数组拼接：
+   （1）np.vstack()	按行堆叠多个数组
+   （2）np.hstack()	按列堆叠多个数组
+   （3）np.dstack()	按深度（第三维）堆叠多个数组
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
