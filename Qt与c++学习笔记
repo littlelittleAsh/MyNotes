@@ -26,4 +26,6 @@
     号与槽（Signals and Slots）机制的一部分；
 12、设置图标：//任务栏图标、窗口图标：
              this->setWindowIcon(QIcon(":/res/icon.png"));
-13、
+13、三种构建模式：debug、profile、release
+14、"Generate form"选项：
+    勾选该选项后designer工具会自动
