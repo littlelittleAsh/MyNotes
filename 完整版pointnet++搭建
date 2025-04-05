@@ -1,0 +1,16 @@
+1、参数管理方式采用 hydra （替代 config.py）
+2、requirements.txt 文件：
+   生成：pip freeze > requirements.txt
+   内容：库名、其他requirements 文件（-r base.txt）、资源链接（git+https://github.com/user/repo.git@branch）、文件路径（本地库）
+   使用：pip install -r requirements.txt
+3、“安装库” 和 “下载库” 区别：
+   下载（download）：	把库的 源代码 或 编译包 下载到本地（但还不能直接 import 使用）。
+   安装（install）： 	把库 解析、编译、放入 Python 解释器可访问的位置，这样才能 import。
+4、pip install 背后的过程（实际执行了 3 个步骤）：
+    （1）从 PyPI（Python Package Index）下载到缓存（默认 ~/.cache/pip）。
+    （2）解压 & 编译: ✅如果是 .whl（Wheel 包，推荐）：已编译，直接安装，无需 setup.py 处理。
+                     ✅如果是 .tar.gz 源码包，需要解压并执行 setup.py（新：pyproject.toml） 编译。
+                     ❌ 裸露的 Python 文件（如 mylib.py）不会直接发布到 PyPI。
+    （3）安装到 Python 的 site-packages 目录，让 Python 解释器能找到它。
+    （4）参数 ‘-e’ ： 允许你安装 本地目录的 Python 包，但不会复制文件到 site-packages，而是创建 符号链接，若发生修改自动加载最新版本。
+                     否则，直接复制到 site-packages。
