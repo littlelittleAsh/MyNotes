@@ -14,3 +14,60 @@
     （3）安装到 Python 的 site-packages 目录，让 Python 解释器能找到它。
     （4）参数 ‘-e’ ： 允许你安装 本地目录的 Python 包，但不会复制文件到 site-packages，而是创建 符号链接，若发生修改自动加载最新版本。
                      否则，直接复制到 site-packages。
+
+5、进度显示：tqdm库：
+   把tqdm包裹在任何可迭代对象外面，即可，如
+                     for i in tqdm(range(10)):
+                         time.sleep(0.5)
+6、张量转移到gpu：tensor.cuda()。
+7、在 PyTorch 中，所有神经网络的“层”都是 nn.Module 的子类！！！
+8、apply(fn) 是 PyTorch 中 nn.Module 的一个 递归方法，作用是：
+      把 fn(module) 作用于当前模块（model）及其所有子模块（包括每一层，如 Conv、ReLU、BN、Linear...）。
+9、模型调参的阶段：
+            模型结构设置 -> 训练超参数 -> 数据增强 -> 损失函数选择 -> 模型结构调优
+   （1）模型结构设置
+         ✅ 初始化权重（weights_init）
+         ✅ 替换激活函数（inplace_relu）
+         ✅ 修改 BatchNorm 参数（bn_momentum_adjust）
+         ➕ 其他如：初始化 bias 为小正数、防止 dead ReLU
+   （2）训练超参数
+         学习率 lr，调优策略（cosine、step、warmup）
+         优化器选择（Adam vs SGD vs AdamW）
+         weight_decay（权重衰减/正则化）
+         momentum / beta1 / beta2（优化器相关）
+         batch_size
+         epoch 数
+   （3）数据增强
+         点云类数据：随机旋转、缩放、剪裁、抖动
+         图像类：翻转、颜色扰动、CutMix、MixUp 等
+         归一化方式、是否中心化（对 PointNet 很关键）
+   （4）损失函数选择
+         损失函数选择（CE、Focal Loss、Dice Loss）
+         类别不平衡时加权
+         多任务损失的权重系数调节
+   （5）模型结构调优
+         层数、通道数、是否使用残差、是否加 Dropout
+         SA/FP 模块的 radius/ratio 等参数（对 PointNet++ 很重要）
+         中间 feature 抽取的位置、是否使用 skip-connection 等
+10、旧版绕开计算图的方法为 tensor.data，目前已经不推荐，推荐使用 .detach().cpu().numpy() 
+11、索引语法似乎有更高级的内容？搁置❌
+12、pointnet++中，点云的坐标有两套！！———— 局部坐标和全局坐标
+13、原来只要写成相对路径，python解释器会自动查找，但注意要从“项目” 的根目录开始；
+14、将多类标签转为二类标签：binary_label = (original_label == 5).long()
+15、即便是二分类，样本不平衡仍然会导致模型偏向多数类。
+16、在 PointNet 或 PointNet++ 中，T-Net（Transformation Network）是一种小型的网络模块，它会学出一个仿射变换矩阵（如 3×3 或 64×64），用于对输入点或特征进
+行对齐，这个时候需要在损失中加入一个正则项，惩罚 T-Net 学到的变换矩阵不正交（即扭曲了坐标轴），即 feature_transform_regularizer。
+17、在数据加载模块中的函数：
+             def __len__(self):
+                 return self.sample_repeat
+    表示你有“几个样本”，（在正式的工作中应该都是多个样本齐出的吧）
+    而函数：  
+             def __getitem__(self, idx):
+    则是表示，你每个样本“长什么样”。
+18、可以在脚本中设置 os.environ['CUDA_LAUNCH_BLOCKING'] = '1'，用于gpu更精准排除错误
+   
+
+
+
+
+
