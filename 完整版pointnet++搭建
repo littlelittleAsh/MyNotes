@@ -51,6 +51,11 @@
          中间 feature 抽取的位置、是否使用 skip-connection 等
 10、旧版绕开计算图的方法为 tensor.data，目前已经不推荐，推荐使用 .detach().cpu().numpy() 
 11、索引语法似乎有更高级的内容？搁置❌
+    ✅解决：
+           对于例子：points[batch_indices, idx, :]
+      🔴 batch_indices 和 idx 的形状必须相同，都等于要取出向量的shape；
+      🔴 batch_indices 中存放批次索引，idx 中存放“批内”索引
+      🔴 
 12、pointnet++中，点云的坐标有两套！！———— 局部坐标和全局坐标
 13、原来只要写成相对路径，python解释器会自动查找，但注意要从“项目” 的根目录开始；
 14、将多类标签转为二类标签：binary_label = (original_label == 5).long()
@@ -65,6 +70,9 @@
              def __getitem__(self, idx):
     则是表示，你每个样本“长什么样”。
 18、可以在脚本中设置 os.environ['CUDA_LAUNCH_BLOCKING'] = '1'，用于gpu更精准排除错误
+19、在 scikit-learn 的 API 设计规范里：
+       只要是模型拟合（fit）之后才产生的属性，通常都会以一个 下划线 _ 结尾。
+20、
    
 
 
