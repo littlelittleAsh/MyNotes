@@ -186,6 +186,7 @@
               Get-Content "filename.txt" -Skip 99 -Head 20      # 从第100行开始，查看20行
               Get-Content "filename.txt" | Select-Object -First 1000 | Set-Content "part1.txt"   # 将 filename.txt 文件的前 1000 行保存到一
          个新文件 part1.txt 中（分割）
+              more readme.txt        # 该方法可在cmd中分页查看
    （2）Linux下：
          head -n 20 filename.txt；   # 前20行
          tail -n 20 filename.txt；   # 末20行
@@ -252,10 +253,22 @@
     当使用 from ... import ... 语句导入模块中的特定函数时，不需要添加模块名前缀就可以直接调用该函数；
 24、torch.float64 和 torch.double 等价；
     torch.float32 和 torch.float 等价；
-25、
-
-
-
+25、python 中的 “ = ” 不叫 “赋值”‼️，它叫 “名字绑定（name binding）”，官方文档的定义为：
+         "Assignment statements in Python do not copy objects, they bind names to objects."
+26、关于引用还是新建，gpt给出的口诀为：可变则真改，不可变则换。看似原地，实则新建。
+27、python提供的 深浅拷贝：
+    浅拷贝 b = copy.copy(a) ：创建新的“容器”，但内部引用共享；
+    深拷贝 b = copy.deepcopy(a) ：彻底断开与原始对象的所有引用联系。
+28、递归DFS在Python中受**最大递归深度（默认1000）**限制，超过就RecursionError
+29、python的字典对象 dict 是可迭代对象，但默认迭代内容为 键（key）值：
+         for key in my_dict:
+    若要迭代 值（value），则需要：
+         for value in my_dict.values():
+    同时迭代则为：
+         for key, value in my_dict.items():
+30、类型注解：def compute_top_center(points: np.ndarray, top_ratio: float = 0.1) -> np.ndarray:
+    其中 -> np.ndarray 代表返回类型
+31、
 
 
 
