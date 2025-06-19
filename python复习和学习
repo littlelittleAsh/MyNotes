@@ -268,8 +268,9 @@
          for key, value in my_dict.items():
 30、类型注解：def compute_top_center(points: np.ndarray, top_ratio: float = 0.1) -> np.ndarray:
     其中 -> np.ndarray 代表返回类型
-31、
-
+31、numpy的 save() 方法默认 allow_pickle=True
+    另外，np.load() 方法默认 allow_pickle=Fase，且在使用时，要注意 “.item()” 的增添！！
+            instances = np.load("result/instances_tree_pre.npy", allow_pickle=True).item()
 
 
 
